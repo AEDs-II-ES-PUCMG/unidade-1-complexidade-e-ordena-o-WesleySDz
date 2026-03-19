@@ -1,14 +1,12 @@
-
 import java.util.Arrays;
 
-public class BubbleSort<T extends Comparable<T>> implements IOrdenador<T> {
-
+public class SelectionSort<T extends Comparable<T>> implements IOrdenador<T>{
     private int comparacoes;
     private int movimentacoes;
     private double tempoOrdenacao;
     private double inicio;
 
-    private double nanoToMilli = 1.0 / 1_000_000;
+     private double nanoToMilli = 1.0 / 1_000_000;
 
     @Override
     public int getComparacoes() {
@@ -35,7 +33,7 @@ public class BubbleSort<T extends Comparable<T>> implements IOrdenador<T> {
         this.tempoOrdenacao = (System.nanoTime() - this.inicio) * nanoToMilli;
     }
 
-    /*
+     /*
      * Troca dois elementos de posição no vetor.
      */
     private void swap(int x, int y, T[] vetor) {
@@ -50,16 +48,15 @@ public class BubbleSort<T extends Comparable<T>> implements IOrdenador<T> {
         T[] dadosOrdenados = Arrays.copyOf(dados, dados.length);
         int tamanho = dadosOrdenados.length;
         iniciar();
-        for (int i = tamanho - 1; i > 0; i--) { // Vai do final do array até o inicio
-            for (int j = 0; j < i; j++) { // Percorre até a posição de referencia
-                comparacoes++; 
-                if ((dadosOrdenados[j].compareTo(dadosOrdenados[j + 1]) > 0)) { // Compara o elemento atual com o próximo, se for maior, troca
-                    swap(j, j + 1, dadosOrdenados); // Troca os elementos de posição
+        for (int i = 0; i < tamanho; i++){
+            for (int j = i + 1; j < tamanho; j++){
+                comparacoes++;
+                if (dadosOrdenados[j].compareTo(dadosOrdenados[i]) < 0){
+                    swap(i, j, dadosOrdenados);
                 }
             }
         }
         terminar();
         return dadosOrdenados;
     }
-
 }
