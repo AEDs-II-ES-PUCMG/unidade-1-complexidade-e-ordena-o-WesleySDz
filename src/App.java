@@ -72,6 +72,15 @@ public class App {
         System.out.println("Movimentações: " + selecao.getMovimentacoes());
         System.out.println("Tempo de ordenação (ms): " + selecao.getTempoOrdenacao());
 
+        MergeSort<Integer> merge = new MergeSort<>();
+
+        Integer[] vetorOrdenadoMerge = merge.ordenar(vetor);
+
+        System.out.println("\nVetor ordenado método Merge:");
+        System.out.println("Comparações: " + merge.getComparacoes());
+        System.out.println("Movimentações: " + merge.getMovimentacoes());
+        System.out.println("Tempo de ordenação (ms): " + merge.getTempoOrdenacao());
+
         System.out.println("\nVetor original:");
         for (int i = 0; i < vetor.length - 1; i++) {
             System.out.print(vetor[i] + " ");
@@ -91,6 +100,11 @@ public class App {
         System.out.println("\nSeleção: ");
         for (int i = 0; i < vetorOrdenadoSelecao.length - 1; i++) {
             System.out.print(vetorOrdenadoSelecao[i] + " ");
+        }
+
+        System.out.println("\nMerge: ");
+        for (int i = 0; i < vetorOrdenadoMerge.length - 1; i++) {
+            System.out.print(vetorOrdenadoMerge[i] + " ");
         }
         
 
