@@ -35,52 +35,52 @@ public class MergeSort<T extends Comparable<T>> implements IOrdenador<T> {
         this.tempoOrdenacao = (System.nanoTime() - this.inicio) * nanoToMilli;
     }
 
-    private void mergeSort(int[] array, int esq, int dir) {
+    private void mergeSort(T[] array, int esq, int dir) {
         if (esq < dir) {
-            int meio = (esq + dir) / 2;
+            int meio = (esq + dir) / 2; // Encontra o ponto médio do array
             mergeSort(array, esq, meio);
             mergeSort(array, meio + 1, dir);
             intercalar(array, esq, meio, dir);
         }
     }
 
-    private void intercalar(int[] array, int esq, int meio, int dir) {
-
-        int n1, n2, i, j, k;
+    private void intercalar(T[] array, int esq, int meio, int dir) {
+        int i, j, k;
 
         //Definir tamanho dos dois subarrays
-        n1 = meio - esq + 1;
-        n2 = dir - meio;
+        int n1 = meio - esq + 1;
+        int n2 = dir - meio;
 
-        int[] a1 = new int[n1];
-        int[] a2 = new int[n2];
+        T[] a1 = Arrays.copyOfRange(array, esq, meio + 1);
+        T[] a2 = Arrays.copyOfRange(array, meio + 1, dir + 1);
 
-        //Inicializar primeiro subarray
-        for (i = 0; i < n1; i++) {
-            a1[i] = array[esq + i];
-        }
+        this.movimentacoes += n1 + n2; // Movimentações para copiar os elementos para os subarrays
 
-        //Inicializar segundo subarray
-        for (j = 0; j < n2; j++) {
-            a2[j] = array[meio + j + 1];
-        }
 
         //Intercalação propriamente dita
         for (i = j = 0, k = esq; (i < n1 && j < n2); k++) {
-            if (a1[i] <= a2[j]) {
+            this.comparacoes++; // Aumentar o contador de comparações para cada comparação feita
+
+            if (a1[i].compareTo(a2[j]) <= 0) {
                 array[k] = a1[i++];
             } else {
                 array[k] = a2[j++];
             }
+
+            this.movimentacoes++; // Aumentar o contador de movimentações para cada movimentação feita
         }
 
         if (i == n1) {
             for (; k <= dir; k++) {
                 array[k] = a2[j++];
+
+                this.movimentacoes++; // Aumentar o contador de movimentações para cada movimentação feita
             }
         } else {
             for (; k <= dir; k++) {
                 array[k] = a1[i++];
+
+                this.movimentacoes++; // Aumentar o contador de movimentações para cada movimentação feita
             }
         }
     }
@@ -90,6 +90,9 @@ public class MergeSort<T extends Comparable<T>> implements IOrdenador<T> {
         T[] dadosOrdenados = Arrays.copyOf(dados, dados.length);
         int tamanho = dadosOrdenados.length;
         iniciar();
+
+        mergeSort(dadosOrdenados, 0, tamanho - 1);
+
         terminar();
         return dadosOrdenados;
     }
