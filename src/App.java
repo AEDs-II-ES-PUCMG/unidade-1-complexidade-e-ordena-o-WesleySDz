@@ -73,7 +73,7 @@ public class App {
         int tam = 20;
         Integer[] vetor = gerarVetorObjetos(tam);
 
-        BubbleSort<Integer> bolha = new BubbleSort<>();
+        Bubblesort<Integer> bolha = new Bubblesort<>();
 
         Integer[] vetorOrdenadoBolha = bolha.ordenar(vetor);
 
@@ -82,7 +82,7 @@ public class App {
         System.out.println("Movimentações: " + bolha.getMovimentacoes());
         System.out.println("Tempo de ordenação (ms): " + bolha.getTempoOrdenacao());
 
-        InsertionSort<Integer> insercao = new InsertionSort<>();
+        InsertSort<Integer> insercao = new InsertSort<>();
 
         Integer[] vetorOrdenadoInsercao = insercao.ordenar(vetor);
 
@@ -100,7 +100,7 @@ public class App {
         System.out.println("Movimentações: " + selecao.getMovimentacoes());
         System.out.println("Tempo de ordenação (ms): " + selecao.getTempoOrdenacao());
 
-        MergeSort<Integer> merge = new MergeSort<>();
+        Mergesort<Integer> merge = new Mergesort<>();
 
         Integer[] vetorOrdenadoMerge = merge.ordenar(vetor);
 
