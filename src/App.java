@@ -41,6 +41,34 @@ public class App {
         return vetor;
     }
 
+    /**
+     * Mostra o menu de escolha do método de ordenação.
+     */
+    private static void menuOrdenacao() {
+        System.out.println("Escolha o método de ordenação:");
+        System.out.println("1 - Bubble Sort");
+        System.out.println("2 - Insertion Sort");
+        System.out.println("3 - Selection Sort");
+        System.out.println("4 - Merge Sort");
+        System.out.print("Digite o número correspondente ao método escolhido: ");
+        int escolha = scanner.nextInt();
+        vetorEscolhido(escolha);
+
+    }
+
+    private static void vetorEscolhido(int escolha) {
+        switch (escolha) {
+            case 1 -> System.out.println("Você escolheu o método Bubble Sort.");
+            case 2 -> System.out.println("Você escolheu o método Insertion Sort.");
+            case 3 -> System.out.println("Você escolheu o método Selection Sort.");
+            case 4 -> System.out.println("Você escolheu o método Merge Sort.");
+            default -> System.out.println("Opção inválida. Por favor, escolha um número entre 1 e 4.");
+        }
+    }
+
+
+    private static java.util.Scanner scanner = new java.util.Scanner(System.in);
+
     public static void main(String[] args) {
         int tam = 20;
         Integer[] vetor = gerarVetorObjetos(tam);
