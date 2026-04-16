@@ -73,24 +73,6 @@ public class App {
         int tam = 20;
         Integer[] vetor = gerarVetorObjetos(tam);
 
-        BubbleSort<Integer> bolha = new BubbleSort<>();
-
-        Integer[] vetorOrdenadoBolha = bolha.ordenar(vetor);
-
-        System.out.println("\nVetor ordenado método Bolha:");
-        System.out.println("Comparações: " + bolha.getComparacoes());
-        System.out.println("Movimentações: " + bolha.getMovimentacoes());
-        System.out.println("Tempo de ordenação (ms): " + bolha.getTempoOrdenacao());
-
-        InsertionSort<Integer> insercao = new InsertionSort<>();
-
-        Integer[] vetorOrdenadoInsercao = insercao.ordenar(vetor);
-
-        System.out.println("\nVetor ordenado método Inserção:");
-        System.out.println("Comparações: " + insercao.getComparacoes());
-        System.out.println("Movimentações: " + insercao.getMovimentacoes());
-        System.out.println("Tempo de ordenação (ms): " + insercao.getTempoOrdenacao());
-
         SelectionSort<Integer> selecao = new SelectionSort<>();
 
         Integer[] vetorOrdenadoSelecao = selecao.ordenar(vetor);
@@ -100,7 +82,7 @@ public class App {
         System.out.println("Movimentações: " + selecao.getMovimentacoes());
         System.out.println("Tempo de ordenação (ms): " + selecao.getTempoOrdenacao());
 
-        MergeSort<Integer> merge = new MergeSort<>();
+        Mergesort<Integer> merge = new Mergesort<>();
 
         Integer[] vetorOrdenadoMerge = merge.ordenar(vetor);
 
@@ -112,17 +94,6 @@ public class App {
         System.out.println("\nVetor original:");
         for (int i = 0; i < vetor.length - 1; i++) {
             System.out.print(vetor[i] + " ");
-        }
-
-
-        System.out.println("\nBolha: ");
-        for (int i = 0; i < vetorOrdenadoBolha.length - 1; i++) {
-            System.out.print(vetorOrdenadoBolha[i] + " ");
-        }
-
-        System.out.println("\nInserção: ");
-        for (int i = 0; i < vetorOrdenadoInsercao.length - 1; i++) {
-            System.out.print(vetorOrdenadoInsercao[i] + " ");
         }
 
         System.out.println("\nSeleção: ");
