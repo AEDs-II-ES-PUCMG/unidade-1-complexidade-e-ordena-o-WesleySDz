@@ -33,6 +33,7 @@ public class AppOficina {
 
     static final int MAX_PEDIDOS = 100;
     static Produto[] produtos;
+    static ProdutoPerecivel[] produtosPereciveis;
     static Produto[] produtosPorId;
     static Produto[] produtosPorDescricao;
     static int quantProdutos = 0;
@@ -87,6 +88,8 @@ public class AppOficina {
         System.out.println("2 - Inserção");
         System.out.println("3 - Seleção");
         System.out.println("4 - Mergesort");
+        System.err.println("5 - Heapsort");
+        System.err.println("6 - Quicksort");
         System.out.println("0 - Finalizar");
 
         return lerNumero("Digite sua opção", Integer.class);
@@ -96,6 +99,7 @@ public class AppOficina {
         cabecalho();
         System.out.println("1 - Padrão");
         System.out.println("2 - Por código");
+        System.err.println("3 - Por desconto");
 
         return lerNumero("Digite sua opção", Integer.class);
     }
@@ -176,7 +180,7 @@ public class AppOficina {
         StringBuilder relatorio = new StringBuilder();
         for (int i = 0; i < quantProdutos; i++) {
             if (produtos[i].valorDeVenda() < valor) {
-                relatorio.append(produtos[i] + "\n");
+                relatorio.append(produtos[i]).append("\n");
             }
         }
         System.out.println(relatorio.toString());
@@ -230,8 +234,12 @@ public class AppOficina {
                 ordenador = new SelectionSort<>();
             case 4 ->
                 ordenador = new Mergesort<>();
+            case 5 ->
+                ordenador = new HeapSort<>();
+            case 6 ->
+                ordenador = new QuickSort<>();
             default ->
-                System.out.println("Opção inválida. Por favor, escolha um número entre 1 e 4.");
+                System.out.println("Opção inválida. Por favor, escolha um número entre 1 e 6.");
         }
 
         Produto[] ordenados = null;
@@ -239,10 +247,18 @@ public class AppOficina {
         switch (opcao2) {
             case 1 ->
                 ordenados = ordenador.ordenar(produtos);
-            case 2 ->
+            case 2 -> // Ordena por codigo (ID)
                 ordenados = ordenador.ordenar(produtos, (p1, p2) -> Integer.compare(p1.hashCode(), p2.hashCode()));
+            case 3 -> // Ordena por desconto, mas só os produtos pereciveis tem
+                ordenados = ordenador.ordenar(produtos, (p1, p2) -> {
+                    // O desconto se aplica se a validade estiver vencendo em até 7 dias dentro do metodo valorDeVenda (desconto fixo definido na classe Perecivel), então o valor de venda já considera isso. Para os não perecíveis, o desconto é 0.
+                    double desconto1 = p1.valorDeVenda() < p1.precoCusto * (1 + p1.margemLucro) ? 0.25 : 0;
+                    double desconto2 = p2.valorDeVenda() < p2.precoCusto * (1 + p2.margemLucro) ? 0.25 : 0;
+                    return Double.compare(desconto2, desconto1); // Ordena do maior desconto para o
+                    
+                });
             default ->
-                System.out.println("Opção inválida. Por favor, escolha um número entre 1 e 2.");
+                System.out.println("Opção inválida. Por favor, escolha um número entre 1 e 3.");
         }
 
         if (ordenados != null) {
