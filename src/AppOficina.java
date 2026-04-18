@@ -252,10 +252,13 @@ public class AppOficina {
             case 3 -> // Ordena por desconto, mas só os produtos pereciveis tem
                 ordenados = ordenador.ordenar(produtos, (p1, p2) -> {
                     // O desconto se aplica se a validade estiver vencendo em até 7 dias dentro do metodo valorDeVenda (desconto fixo definido na classe Perecivel), então o valor de venda já considera isso. Para os não perecíveis, o desconto é 0.
-                    double desconto1 = p1.valorDeVenda() < p1.precoCusto * (1 + p1.margemLucro) ? 0.25 : 0;
-                    double desconto2 = p2.valorDeVenda() < p2.precoCusto * (1 + p2.margemLucro) ? 0.25 : 0;
-                    return Double.compare(desconto2, desconto1); // Ordena do maior desconto para o
-                    
+                    double valorBase1 = p1.precoCusto * (1 + p1.margemLucro);
+                    double valorBase2 = p2.precoCusto * (1 + p2.margemLucro);
+
+                    double desconto1 = valorBase1 - p1.valorDeVenda();
+                    double desconto2 = valorBase2 - p2.valorDeVenda();
+
+                    return Double.compare(desconto1, desconto2);
                 });
             default ->
                 System.out.println("Opção inválida. Por favor, escolha um número entre 1 e 3.");
