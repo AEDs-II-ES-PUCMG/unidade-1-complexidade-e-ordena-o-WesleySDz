@@ -36,6 +36,7 @@ public class AppOficina {
     static ProdutoPerecivel[] produtosPereciveis;
     static Produto[] produtosPorId;
     static Produto[] produtosPorDescricao;
+    static Produto[] produtosPorDesconto;
     static int quantProdutos = 0;
     static String nomeArquivoDados = "produtos.txt";
     static IOrdenador<Produto> ordenador;
@@ -130,9 +131,18 @@ public class AppOficina {
         if (produtos != null) {
             produtosPorId = Arrays.copyOf(produtos, quantProdutos);
             produtosPorDescricao = Arrays.copyOf(produtos, quantProdutos);
+            produtosPorDesconto = Arrays.copyOf(produtos, quantProdutos);
 
             Arrays.sort(produtosPorId, (p1, p2) -> Integer.compare(p1.hashCode(), p2.hashCode()));
             Arrays.sort(produtosPorDescricao, (p1, p2) -> p1.descricao.compareToIgnoreCase(p2.descricao));
+            Arrays.sort(produtosPorDesconto, (p1, p2) -> {
+                double valorBase1 = p1.precoCusto * (1 + p1.margemLucro);
+                double valorBase2 = p2.precoCusto * (1 + p2.margemLucro);
+
+                double  desconto1 = valorBase1 - p1.valorDeVenda();
+                double desconto2 = valorBase2 - p2.valorDeVenda();
+                return Double.compare(desconto1, desconto2);
+            });
         } else {
             System.out.println("Nenhum produto carregado. Índices de busca não criados.");
         }
